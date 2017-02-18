@@ -1,0 +1,9 @@
+{
+  "name": "combistack-chrome",
+  "version": "1.0.0",
+  "description": "CombiStack chrome tools",
+  "main": "index.js",
+  "repository": "git@github.com:combistack/chrome.git",
+  "author": "Nemanja Nedeljković <nemanjan00@gmail.com>",
+  "license": "MIT"
+}
