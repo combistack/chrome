@@ -12,5 +12,5 @@ module.exports = function(path){
 	return chrome;
 };
 
-module.exports("123").cookies.site.getCookies("google.com");;
+module.exports("123").cookies.site.getCookies(".google.com");;
 
