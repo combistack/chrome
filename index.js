@@ -5,7 +5,8 @@ var chrome = {
 }
 
 chrome.cookies = {
-	site: require("./cookies/site")(chrome)
+	site: require("./cookies/site")(chrome),
+	all: require("./cookies/all")(chrome)
 };
 
 module.exports = function(path){

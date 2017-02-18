@@ -1,7 +1,7 @@
 var _s = require("underscore.string");
 
 module.exports = function(chrome){
-	cookies = require("./all")(chrome);
+	var cookies = require("./all")(chrome);
 
 	cookies.filter = function(row){
 		return cookies._host.endsWith(_s.trim(row.host_key, "."));
