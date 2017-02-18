@@ -1,5 +1,9 @@
 var chrome = {
-	_path: undefined
+	_path: undefined,
+
+	cookies: {
+		site: require(./cookies/site)(chrome);
+	}
 };
 
 module.exports = function(path){
