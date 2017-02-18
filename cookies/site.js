@@ -1,6 +1,6 @@
 var sqlite3 = require('sqlite3').verbose();
 var crypto = require('crypto');
-var BN = require('bn.js');
+var _s = require("underscore.string");
 
 var cookies = {
 	_chrome: undefined,
@@ -31,33 +31,49 @@ var cookies = {
 		});
 	},
 
-	getCookies: function(domain){
+	filter: function(row){
+		return cookies._host.endsWith(_s.trim(row.host_key, "."));
+	},
+
+	_getCookies: function(){
 		return new Promise(function(resolve, reject){
-			var db = new sqlite3.Database('/home/nemanjan00/.config/google-chrome/Default/Cookies');
+			console.log(cookies._chrome._path+'/Cookies');
+			var db = new sqlite3.Database(cookies._chrome._path+'/Cookies');
 
-			db.serialize(function() {
-				db.each("SELECT * FROM cookies", function(err, row) {
-					if(row.host_key == domain){
-						var promises = [];
+			db.all("SELECT * FROM cookies", function(err, rows) {
+				var allPromises = [];
 
-						if(row.value == ""){
-							promises.push(cookies._decrypt(row.encrypted_value));
-						}
+				rows.forEach(function(row){
+					if(cookies.filter(row)){
+						allPromises.push(new Promise(function(resolve, reject){
+							var promises = [];
 
-						Promise.all(promises).then(function(data){
 							if(row.value == ""){
-								row.value = data[0];
+								promises.push(cookies._decrypt(row.encrypted_value));
 							}
 
-							console.log(row.name);
-							console.log(row.value);
-						});
+							Promise.all(promises).then(function(data){
+								if(row.value == ""){
+									row.value = data[0];
+								}
+
+								resolve(row);
+							});
+						}));
 					}
+				});
+
+				Promise.all(allPromises).then(function(data){
+					console.log(data);
 				});
 			});
 
 			db.close();
 		});
+	},
+	getCookies: function(domain){
+		cookies._host = domain;
+		return cookies._getCookies();
 	}
 }
 

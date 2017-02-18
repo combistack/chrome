@@ -1,16 +1,16 @@
-var chrome = {
-	_path: undefined,
+var expandHomeDir = require('expand-home-dir')
 
-	cookies: {
-		site: require("./cookies/site")(chrome)
-	}
+var chrome = {
+	_path: undefined
+}
+
+chrome.cookies = {
+	site: require("./cookies/site")(chrome)
 };
 
 module.exports = function(path){
-	chrome._path = path;
+	chrome._path = expandHomeDir(path);
 
 	return chrome;
 };
-
-module.exports("123").cookies.site.getCookies(".google.com");;
 
