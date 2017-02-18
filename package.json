@@ -5,5 +5,8 @@
   "main": "index.js",
   "repository": "git@github.com:combistack/chrome.git",
   "author": "Nemanja Nedeljković <nemanjan00@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "sqlite3": "^3.1.8"
+  }
 }
