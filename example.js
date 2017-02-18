@@ -4,7 +4,7 @@ require("./index.js")("~/.config/google-chrome/Default").cookies.site.getCookies
 	console.log(data);
 });
 
-// Pront all cookies
+// Print all cookies
 
 require("./index.js")("~/.config/google-chrome/Default").cookies.all.getCookies().then(function(data){
 	console.log(data);
