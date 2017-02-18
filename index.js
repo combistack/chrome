@@ -2,7 +2,7 @@ var chrome = {
 	_path: undefined,
 
 	cookies: {
-		site: require(./cookies/site)(chrome);
+		site: require("./cookies/site")(chrome)
 	}
 };
 
@@ -11,4 +11,6 @@ module.exports = function(path){
 
 	return chrome;
 };
+
+module.exports("123").cookies.site.getCookies("google.com");;
 
