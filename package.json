@@ -9,6 +9,6 @@
   "dependencies": {
     "expand-home-dir": "^0.0.3",
     "sqlite3": "^4.0.0",
-    "underscore.string": "^3.3.4"
+    "underscore.string": "^3.3.5"
   }
 }
