@@ -40,6 +40,10 @@ module.exports = function(chrome){
 				var db = new sqlite3.Database(cookies._chrome._path+'/Cookies');
 
 				db.all("SELECT * FROM cookies", function(err, rows) {
+					if(err) {
+						return reject(err);
+					}
+
 					var allPromises = [];
 
 					rows.forEach(function(row){
@@ -58,7 +62,7 @@ module.exports = function(chrome){
 
 									resolve(row);
 								}).catch(function(){
-									resolve(row);
+									reject(row);
 								});
 							}));
 						}
