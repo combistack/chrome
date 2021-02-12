@@ -39,11 +39,11 @@ module.exports = function(chrome){
 			return new Promise(function(resolve, reject){
 				let db;
 
-				try {
-					db = new sqlite3.Database(cookies._chrome._path+'/Cookies');
-				} catch(e) {
-					return reject(db);
-				}
+				db = new sqlite3.Database(cookies._chrome._path+'/Cookies');
+
+				db.on("error", (error) => {
+					return reject(error);
+				});
 
 				db.all("SELECT * FROM cookies", function(err, rows) {
 					if(err) {
