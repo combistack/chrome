@@ -8,7 +8,7 @@
   "license": "MIT",
   "dependencies": {
     "expand-home-dir": "^0.0.3",
-    "sqlite3": "^5.0.1",
+    "sqlite3": "5.0.0",
     "underscore.string": "^3.3.4"
   }
 }
