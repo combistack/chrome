@@ -1,6 +1,6 @@
 {
   "name": "combistack-chrome",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "CombiStack chrome tools",
   "main": "index.js",
   "repository": "git@github.com:combistack/chrome.git",
