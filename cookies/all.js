@@ -2,7 +2,7 @@ var sqlite3 = require('sqlite3').verbose();
 var crypto = require('crypto');
 
 module.exports = function(chrome){
-	var cookies = {
+	const cookies = {
 		_chrome: undefined,
 
 		format: function(key){
@@ -37,19 +37,26 @@ module.exports = function(chrome){
 
 		_getCookies: function(){
 			return new Promise(function(resolve, reject){
-				var db = new sqlite3.Database(cookies._chrome._path+'/Cookies');
+				let db;
+
+				try {
+					db = new sqlite3.Database(cookies._chrome._path+'/Cookies');
+				} catch(e) {
+					return reject(db);
+				}
 
 				db.all("SELECT * FROM cookies", function(err, rows) {
 					if(err) {
+						console.eror(err);
 						return reject(err);
 					}
 
-					var allPromises = [];
+					const allPromises = [];
 
 					rows.forEach(function(row){
 						if(cookies.filter(row)){
 							allPromises.push(new Promise(function(resolve, reject){
-								var promises = [];
+								const promises = [];
 
 								if(row.value == ""){
 									promises.push(cookies._decrypt(row.encrypted_value));
@@ -62,7 +69,7 @@ module.exports = function(chrome){
 
 									resolve(row);
 								}).catch(function(){
-									reject(row);
+									resolve(row);
 								});
 							}));
 						}
